@@ -1,6 +1,6 @@
 import ezomero
 import argparse
-import json
+import ast
 from omero.clients import BaseClient
 from omero.gateway import BlitzGateway
 
@@ -8,7 +8,7 @@ def main(id, kv):
     print("this is a test")
     print(id)
     print(kv)
-    params = json.loads(kv)
+    params = ast.literal_eval(kv)
     print(params)
     data_type = params['Data_Type']
     data_id = params['IDs']
