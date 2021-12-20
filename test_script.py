@@ -1,11 +1,14 @@
 import ezomero
 import argparse
+from omero.clients import BaseClient
+from omero.gateway import BlitzGateway
 
-def main(msg):
+def main(id):
     print("this is a test")
-    conn = ezomero.connect()
-    print(conn)
-    print(msg)
+    print(id)
+    client = BaseClient()
+    client.joinSession(id)
+    conn = BlitzGateway(client_obj=client)
     ezomero.print_groups(conn)
     conn.close()
 
@@ -13,9 +16,9 @@ def main(msg):
 if __name__ == "__main__":
     description = 'testing omero script and passing args'
     parser = argparse.ArgumentParser(description=description)
-    parser.add_argument('msg',
+    parser.add_argument('id',
                         type=str,
-                        help='message to be printed')
+                        help='uuid of the session to be used')
     args = parser.parse_args()
 
-    main(args.msg)
+    main(args.id)
