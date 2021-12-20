@@ -6,7 +6,7 @@ from omero.gateway import BlitzGateway
 def main(id):
     print("this is a test")
     print(id)
-    client = BaseClient(host='localhost')
+    client = BaseClient(host='ctomerodev.jax.org')
     client.joinSession(id)
     conn = BlitzGateway(client_obj=client)
     ezomero.print_groups(conn)
