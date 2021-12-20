@@ -1,6 +1,4 @@
-# A list of datasets will be dynamically generated and used to populate the
-# script parameters every time the script is called
-
+import subprocess
 from omero import scripts
 from omero.rtypes import rstring, rlong
 
@@ -33,6 +31,14 @@ def runScript():
     id = client.getSessionId()
     try:
         scriptParams = client.getInputs(unwrap=True)
+        docker_cmd = ['docker', 'run', 'test-omero', id, 
+                     str(scriptParams)]
+        process = subprocess.Popen(docker_cmd,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE
+                                  )
+        stdoutval, stderrval = process.communicate()
+        stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
         message = 'Params: %s\n' % scriptParams
         message = message + "ID: %s\n" % id
         message = message + "params type: %s\n" % str(type(scriptParams))
