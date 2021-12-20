@@ -12,7 +12,7 @@ def main(id, kv):
     print(params)
     data_type = params['Data_Type']
     data_id = params['IDs']
-    ann = {params['Key']:params['Value']}
+    ann = {params['Key']:params['Value'][0]}
     client = BaseClient(host='ctomerodev.jax.org')
     client.joinSession(id)
     conn = BlitzGateway(client_obj=client)
