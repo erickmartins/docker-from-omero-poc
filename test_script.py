@@ -18,7 +18,6 @@ def main(id, kv):
     conn = BlitzGateway(client_obj=client)
     ezomero.print_groups(conn)
     ezomero.post_map_annotation(conn, data_type, data_id, ann, ns='test')
-    conn.close()
 
 
 if __name__ == "__main__":
