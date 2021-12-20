@@ -32,4 +32,4 @@ if __name__ == "__main__":
                         help='dictionary with kv pair and where to put it')
     args = parser.parse_args()
 
-    main(args.id)
+    main(args.id, args.kv)
