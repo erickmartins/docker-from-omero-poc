@@ -11,8 +11,8 @@ def main(id, kv):
     params = ast.literal_eval(kv)
     print(params)
     data_type = params['Data_Type']
-    data_id = params['IDs']
-    ann = {params['Key']:params['Value'][0]}
+    data_id = params['IDs'][0]
+    ann = {params['Key']:params['Value']}
     client = BaseClient(host='ctomerodev.jax.org')
     client.joinSession(id)
     conn = BlitzGateway(client_obj=client)
