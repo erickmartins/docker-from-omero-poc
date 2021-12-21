@@ -39,9 +39,8 @@ def runScript():
                                   )
         stdoutval, stderrval = process.communicate()
         stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
-        message = 'Params: %s\n' % scriptParams
-        message = message + "ID: %s\n" % id
-        message = message + "params type: %s\n" % str(type(scriptParams))
+        message = 'stdoutval: %s\n' % stdoutval
+        message = message + "stderrval: %s\n" % stderrval
         print(message)
         client.setOutput('Message', rstring(str(message)))
 
