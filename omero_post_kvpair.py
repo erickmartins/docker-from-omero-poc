@@ -32,22 +32,22 @@ def runScript():
     id = client.getSessionId()
     try:
         scriptParams = client.getInputs(unwrap=True)
-        # docker_cmd = ['whoami']
-        # process = subprocess.Popen(docker_cmd,
-        #                            stdout=subprocess.PIPE,
-        #                            stderr=subprocess.PIPE
-        #                           )
-        # stdoutval, stderrval = process.communicate()
-        # stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
-        # message = 'user on docker: %s' % stdoutval
-        # docker_cmd = ['docker', 'run', 'test-omero', id, 
-        #              str(scriptParams)]
-        # process = subprocess.Popen(docker_cmd,
-        #                            stdout=subprocess.PIPE,
-        #                            stderr=subprocess.PIPE
-        #                           )
-        # stdoutval, stderrval = process.communicate()
-        # stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
+        docker_cmd = ['whoami']
+        process = subprocess.Popen(docker_cmd,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE
+                                  )
+        stdoutval, stderrval = process.communicate()
+        stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
+        message = 'user on docker: %s' % stdoutval
+        docker_cmd = ['docker', 'run', 'test-omero', id, 
+                     str(scriptParams)]
+        process = subprocess.Popen(docker_cmd,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE
+                                  )
+        stdoutval, stderrval = process.communicate()
+        stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
         args = [id, str(scriptParams)]
         dock = docker.from_env()
         dock.containers.run("test-omero", args)
