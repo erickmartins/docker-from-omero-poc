@@ -1,4 +1,5 @@
 import subprocess
+import getpass
 from omero import scripts
 from omero.rtypes import rstring, rlong
 
@@ -41,6 +42,7 @@ def runScript():
         stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
         message = 'stdoutval: %s\n' % stdoutval
         message = message + "stderrval: %s\n" % stderrval
+        message = message + "current user: %s\n" % getpass.getuser()
         print(message)
         client.setOutput('Message', rstring(str(message)))
 
