@@ -24,25 +24,27 @@ def runScript():
             description="Key for the map annotation to be added", 
             optional=False),
         scripts.String(
-            "Value", grouping="2",
+            "Value", grouping="3",
             description="Value for the map annotation to be added", 
             optional=False)
     )
 
     id = client.getSessionId()
     try:
+        # either version works fine - right now I have docker-py but 
+        # if you don't want the extra dependency subprocess is fine
         scriptParams = client.getInputs(unwrap=True)
-        docker_cmd = ['docker', 'run', 'test-omero', id, 
-                     str(scriptParams)]
-        process = subprocess.Popen(docker_cmd,
-                                   stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE
-                                  )
-        stdoutval, stderrval = process.communicate()
-        stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
-        # args = [id, str(scriptParams)]
-        # dock = docker.from_env()
-        # dock.containers.run("test-omero", args)
+        # docker_cmd = ['docker', 'run', 'test-omero', id, 
+        #              str(scriptParams)]
+        # process = subprocess.Popen(docker_cmd,
+        #                            stdout=subprocess.PIPE,
+        #                            stderr=subprocess.PIPE
+        #                           )
+        # stdoutval, stderrval = process.communicate()
+        # stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
+        args = [id, str(scriptParams)]
+        dock = docker.from_env()
+        dock.containers.run("test-omero", args)
         
 
     finally:
