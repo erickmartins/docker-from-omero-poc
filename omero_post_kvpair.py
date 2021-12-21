@@ -1,5 +1,5 @@
 import subprocess
-import getpass
+import docker
 from omero import scripts
 from omero.rtypes import rstring, rlong
 
@@ -32,27 +32,26 @@ def runScript():
     id = client.getSessionId()
     try:
         scriptParams = client.getInputs(unwrap=True)
-        docker_cmd = ['whoami']
-        process = subprocess.Popen(docker_cmd,
-                                   stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE
-                                  )
-        stdoutval, stderrval = process.communicate()
-        stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
-        message = 'user on docker: %s' % stdoutval
-        docker_cmd = ['docker', 'run', 'test-omero', id, 
-                     str(scriptParams)]
-        process = subprocess.Popen(docker_cmd,
-                                   stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE
-                                  )
-        stdoutval, stderrval = process.communicate()
-        stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
-        message = message + 'stdoutval: %s\n' % stdoutval
-        message = message + "stderrval: %s\n" % stderrval
-        message = message + "current user: %s\n" % getpass.getuser()
-        print(message)
-        client.setOutput('Message', rstring(str(message)))
+        # docker_cmd = ['whoami']
+        # process = subprocess.Popen(docker_cmd,
+        #                            stdout=subprocess.PIPE,
+        #                            stderr=subprocess.PIPE
+        #                           )
+        # stdoutval, stderrval = process.communicate()
+        # stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
+        # message = 'user on docker: %s' % stdoutval
+        # docker_cmd = ['docker', 'run', 'test-omero', id, 
+        #              str(scriptParams)]
+        # process = subprocess.Popen(docker_cmd,
+        #                            stdout=subprocess.PIPE,
+        #                            stderr=subprocess.PIPE
+        #                           )
+        # stdoutval, stderrval = process.communicate()
+        # stdoutval, stderrval = stdoutval.decode('UTF-8'), stderrval.decode('UTF-8')
+
+        dock = docker.from_env()
+        dock.containers.run("test-omero", id + " " + str(scriptParams))
+        
 
     finally:
         client.closeSession()
