@@ -4,6 +4,8 @@
 # PLEASE READ THIS FIRST
 **Use this at your own risk, and only if you know exactly what you're doing.** If you're in doubt about the consequences of running docker as the OMERO user, please reach out to us. Even though we think there are no security issues in doing so, it is very easy to think about scenarios where there ARE issues if this is misused. 
 
+This repo is intended purely as an example and as a starting point for anyone wanting to run analyses in Docker from OMERO.web. It is NOT to be used as a ready, polished product.
+
 # How-to
 - Edit `test_script.py` so that the `BaseClient` is created pointing to the correct hostname
 - Build the Dockerfile in your server (I used `docker build -t test-omero .` from the repo directory)
