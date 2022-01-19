@@ -1,5 +1,8 @@
 # docker-from-omero-poc
  proof-of-concept running docker container from omero web
+ 
+# PLEASE READ THIS FIRST
+**Use this at your own risk, and only if you know exactly what you're doing.** If you're in doubt about the consequences of running docker as the OMERO user, please reach out to us. Even though we think there are no security issues in doing so, it is very easy to think about scenarios where there ARE issues if this is misused. 
 
 # How-to
 - Edit `test_script.py` so that the `BaseClient` is created pointing to the correct hostname
